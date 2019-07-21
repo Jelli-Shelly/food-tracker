@@ -7,6 +7,8 @@
 	</title>
 	<body>
 		<h1>My Food Tracker</h1>
+		<a href="{% url 'auth_logout' %}">Logout</a> <br /> <br />
+		<a href="{% url 'auth_password_change' %}">Change Password</a> <br /> <br />
 
 		<a href="{% url 'food:add-meal' %}" class="btn btn-outline-success">Add Meal</a> <br /><br />
 
@@ -22,9 +24,12 @@
 				</tr>
 			</thead>
 			<tbody>
+			    {% if meals|length > 3%}
+			        <p>You have more than 3 meals</p>
+			    {% endif%}
 				{% for meal in meals %}
 				<tr>
-					<td>	{{forloop.counter}} 
+					<td>	{{forloop.counter}}
 						{{ meal.food.name }}
 						{% if forloop.last %}
 						Last

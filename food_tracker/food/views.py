@@ -3,7 +3,6 @@ from .models import Food, Meal
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from .forms import MealForm
-import operator
 
 # Create your views here.
 def index(request):
@@ -54,6 +53,12 @@ def meal_detail(request, meal_id):
 	template = "detail.html"
 	meal = Meal.objects.get(id=int(meal_id))
 	context = {
-		"meal" : meal 
+		"meal" : meal
 	}
 	return render(request, template, context)
+
+def login(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse_lazy('food:index'))
+    else:
+        return HttpResponseRedirect(reverse_lazy('auth_login'))

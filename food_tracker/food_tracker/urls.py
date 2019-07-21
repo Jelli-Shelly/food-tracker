@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
+from django.urls import reverse_lazy
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     #url(r'^admin/', admin.site.urls),
 	url(r'^', include(('food.urls','food'), namespace="food")),
+    url(r'^accounts/login/$', auth_views.LoginView.as_view(template_name="login.html"), name='auth_login'),
+    url(r'^accounts/logout/$', auth_views.LogoutView.as_view(next_page="food:login"), name='auth_logout'),
+    url(r'^accounts/password/change$', auth_views.PasswordChangeView.as_view(template_name='password_change.html',success_url=reverse_lazy('food:login')),name='auth_password_change'),
 ]
