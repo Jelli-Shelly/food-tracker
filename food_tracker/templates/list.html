@@ -24,7 +24,7 @@
 			<tbody>
 				{% for meal in meals %}
 				<tr>
-					<td>{{ meal.food.name }}</td>
+					<td>{{forloop.counter}} {{ meal.food.name }}</td>
 					<td>{{ meal.get_meal_time_display }}</td>
 					<td>{{ meal.get_total_calories }} kcal</td>
 					<td style="width: 5%">
